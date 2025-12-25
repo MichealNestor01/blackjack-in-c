@@ -2,6 +2,7 @@
 #define SHUFFLE_H
 
 #include "stdlib.h"
+#include "time.h"
 
 void shuffle_uint_array(unsigned int *arr, unsigned int head);
 
