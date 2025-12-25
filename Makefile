@@ -8,11 +8,12 @@ UNITY_DIR = third_party/unity
 TARGET = blackjack
 TEST_TARGET = test_runner
 
+UTIL_FILES = $(SRC_DIR)/deck.c $(SRC_DIR)/player.c $(SRC_DIR)/shuffle.c
 
-SRC = $(SRC_DIR)/blackjack.c $(SRC_DIR)/deck.c $(SRC_DIR)/player.c
-TEST_SRC = $(TEST_DIR)/test_main.c $(TEST_DIR)/test_deck.c $(TEST_DIR)/test_player.c
+SRC = $(SRC_DIR)/blackjack.c ${UTIL_FILES}
+TEST_SRC = $(TEST_DIR)/test_main.c $(TEST_DIR)/test_deck.c $(TEST_DIR)/test_player.c $(TEST_DIR)/test_shuffle.c
 OBJ = $(SRC:.c=.o)
-TEST_OBJS = src/deck.c src/player.c third_party/unity/unity.c
+TEST_OBJS = ${UTIL_FILES} third_party/unity/unity.c 
 
 all: $(TARGET)
 
