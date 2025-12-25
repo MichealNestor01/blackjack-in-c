@@ -48,10 +48,43 @@ static void test_init_shuffled_multiple_decks(void)
     TEST_ASSERT_NOT_EQUAL_UINT(deck.cards[i], deck.head);
 }
 
+static void test_card_string_repr_all_cards(void)
+{
+    char actual[4];
+    char expected[4];
+
+    const char *suits[] = {"S", "H", "C", "D"};
+    const char *ranks[] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+
+    for (unsigned int i = 0; i < 52; ++i)
+    {
+        card_string_repr(i, actual);
+        snprintf(expected, 4, "%s%s", ranks[i % 13], suits[i / 13]);
+        TEST_ASSERT_EQUAL_STRING(actual, expected);
+    }
+}
+
+static void test_card_string_repr_specific_cards(void)
+{
+    char AS[4] = "AS\0";
+    char KD[4] = "KD\0";
+    char AH[4] = "AH\0";
+    char buff[4];
+
+    card_string_repr(0, buff);
+    TEST_ASSERT_EQUAL_STRING(buff, AS);
+    card_string_repr(51, buff);
+    TEST_ASSERT_EQUAL_STRING(buff, KD);
+    card_string_repr(13, buff);
+    TEST_ASSERT_EQUAL_STRING(buff, AH);
+}
+
 void run_deck_tests(void)
 {
     RUN_TEST(test_init_sorted_deck_single_deck);
     RUN_TEST(test_init_sorted_deck_multiple_decks);
     RUN_TEST(test_init_shuffled_deck);
     RUN_TEST(test_init_shuffled_multiple_decks);
+    RUN_TEST(test_card_string_repr_all_cards);
+    RUN_TEST(test_card_string_repr_specific_cards);
 }
