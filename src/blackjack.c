@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "deck.h"
 #include "time.h"
+#include "game.h"
 
 int main(int argc, char **argv)
 {
@@ -25,7 +26,15 @@ int main(int argc, char **argv)
         exit(0);
     }
 
-    Deck deck = init_shuffled_deck(1);
+    while (1)
+    {
+        play_game(players, decks);
+        // check if the user wants to play again, and with what settings
+    }
+
+    return 0;
+
+    Deck deck = init_shuffled_deck(decks);
     char card[4];
     for (unsigned int i = 0; i <= deck.head; ++i)
     {
