@@ -51,7 +51,7 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
     }
 
     // continue to the players turns
-    printf("== Player turns ==\n");
+    printf("== Player Turns ==\n");
     unsigned short player_not_bust = 0;
     char buff[55];
     for (unsigned short player_index = 0; player_index < player_count; ++player_index)
@@ -108,7 +108,7 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
     }
 
     // dealers turn
-    printf("== Dealer's turn ==\n");
+    printf("== Dealer's Turn ==\n");
     while (1)
     {
         hand_string_repr(dealer, buff);
@@ -126,6 +126,18 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
         printf("!HIT! Dealing the dealer another card\n");
         deal_card(deck, dealer);
     }
+
+    // scores at the doors
+    printf("== Round Overview ==\n");
+    for (unsigned short player_index = 0; player_index < player_count; ++player_index)
+    {
+        hand_string_repr(&players[player_index], buff);
+        score_player(&players[player_index]); // will clear the hand
+        printf("Player %hu's hand: %s (%hu)\n", player_index + 1, buff, players[player_index].hand_score);
+    }
+    hand_string_repr(dealer, buff);
+    dealer->hand_head = -1; // clear the dealer's hand
+    printf("Dealer's hand: %s (%hu)\n", buff, dealer->hand_score);
 }
 
 void deal_card(Deck *deck, Player *player)
