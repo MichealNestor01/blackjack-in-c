@@ -12,11 +12,31 @@ void play_game(unsigned short player_count, unsigned short deck_count)
     players[8] = init_player(); // players[8] is used as the dealer
     Deck deck = init_shuffled_deck(deck_count);
     unsigned short round = 1;
+    char yes_or_no[2];
     while (1)
     { // main loop
+        printf("== Starting round %hu ==\n", round);
         play_round(players, player_count, &deck);
+
+        printf("== Scores at the end of round %hu ==\n", round);
+        for (unsigned short player_index = 0; player_index < player_count; ++player_index)
+            printf("Player %hu's score: %hd\n", player_index + 1, players[player_index].score);
+
+        // clear stdin
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
+
+        // give the user the choice of finishing the game
+        printf("Play another round? (Y/N): ");
+        fgets(yes_or_no, sizeof(yes_or_no), stdin);
+        if (!(yes_or_no[0] == 'Y' || yes_or_no[0] == 'y'))
+        {
+            printf("Ending game\n");
+            return;
+        }
+
         ++round;
-        break;
     }
 }
 
@@ -178,8 +198,7 @@ unsigned short get_player_choice(unsigned short player_number)
             // Consume invalid input
             int c;
             while ((c = getchar()) != '\n' && c != EOF)
-            {
-            }
+                ;
             printf("Invalid input, please enter a number between 1 and 2.\n");
             continue;
         }

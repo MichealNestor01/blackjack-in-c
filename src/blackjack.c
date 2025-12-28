@@ -26,11 +26,24 @@ int main(int argc, char **argv)
         exit(0);
     }
 
+    char yes_or_no[2];
     while (1)
     {
         play_game(players, decks);
-        // check if the user wants to play again, and with what settings
-        break;
+
+        // clear stdin
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
+
+        // check if the user wants to play again
+        printf("Play another game with the same configuration? (Y/N): ");
+        fgets(yes_or_no, sizeof(yes_or_no), stdin);
+        if (!(yes_or_no[0] == 'Y' || yes_or_no[0] == 'y'))
+        {
+            printf("Closing program\n");
+            return 0;
+        }
     }
 
     return 0;
