@@ -95,7 +95,6 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
                 break;
             }
         }
-        deal_card(deck, player);
     }
 
     // check if all players are bust
@@ -132,7 +131,7 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
     for (unsigned short player_index = 0; player_index < player_count; ++player_index)
     {
         hand_string_repr(&players[player_index], buff);
-        score_player(&players[player_index]); // will clear the hand
+        score_player(&players[player_index], dealer); // will clear the hand
         printf("Player %hu's hand: %s (%hu)\n", player_index + 1, buff, players[player_index].hand_score);
     }
     hand_string_repr(dealer, buff);
