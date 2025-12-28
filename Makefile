@@ -1,5 +1,5 @@
 CC      = gcc
-CFLAGS  = -Wall -Wextra -std=c11 -g
+CFLAGS  = -Wall -Wextra -Wno-maybe-uninitialized -std=c11 -g
 
 SRC_DIR = src
 TEST_DIR = tests
@@ -8,7 +8,7 @@ UNITY_DIR = third_party/unity
 TARGET = blackjack
 TEST_TARGET = test_runner
 
-UTIL_FILES = $(SRC_DIR)/deck.c $(SRC_DIR)/player.c $(SRC_DIR)/shuffle.c
+UTIL_FILES = $(SRC_DIR)/deck.c $(SRC_DIR)/player.c $(SRC_DIR)/shuffle.c ${SRC_DIR}/game.c
 
 SRC = $(SRC_DIR)/blackjack.c ${UTIL_FILES}
 TEST_SRC = $(TEST_DIR)/test_main.c $(TEST_DIR)/test_deck.c $(TEST_DIR)/test_player.c $(TEST_DIR)/test_shuffle.c
