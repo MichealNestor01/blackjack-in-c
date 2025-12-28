@@ -40,7 +40,8 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
         if (players[8].hand_score == 21)
         {
             printf("The dealer has blackjack, round over\n");
-            // score_players(players, player_count);
+            for (unsigned short player_index = 0; player_index < player_count; ++player_index)
+                udpdate_score(&players[player_index], 21);
             return;
         }
         printf("The dealer does not have blackjack\n");
