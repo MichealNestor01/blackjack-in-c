@@ -38,6 +38,13 @@ static void test_score_hand_set_hands(void)
     player.hand[2] = 1; //  2 - 2
     score_hand(&player);
     TEST_ASSERT_EQUAL_UINT16(14, player.hand_score);
+    // test low ace and high ace together
+    player.hand_head = 2;
+    player.hand[0] = 13; // AH - 11
+    player.hand[1] = 14; // 2H - 2
+    player.hand[2] = 15; // 3H - 3
+    score_hand(&player);
+    TEST_ASSERT_EQUAL_UINT16(16, player.hand_score);
 }
 
 static void test_init_player(void)

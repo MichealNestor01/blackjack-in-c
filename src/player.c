@@ -20,7 +20,7 @@ void score_hand(Player *player)
     // add the cards face values to the hand score first
     for (int card = 0; card <= player->hand_head; ++card)
     {
-        unsigned short card_val = (player->hand[card] % 12) + 1;
+        unsigned short card_val = (player->hand[card] % 13) + 1;
         if (card_val == 1)
             ++ace_count;
         else if (card_val > 10)
