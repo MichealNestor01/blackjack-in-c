@@ -31,10 +31,26 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
         deal_card(deck, &players[8]); // dealer
         display_hands(players, player_count, 1);
     }
-    // peak for dealer blackjack
-    if (players[8].hand_score == 21)
+
+    // peak for dealer blackjack if possible
+    unsigned short dealer_first_card_val = players[8].hand[0] % 13;
+    if (dealer_first_card_val == 0 || dealer_first_card_val > 9)
     {
-        // score_players(players, player_count);
+        printf("== Peaking at the dealer's hand ==\n");
+        if (players[8].hand_score == 21)
+        {
+            printf("The dealer has blackjack, round over\n");
+            // score_players(players, player_count);
+            return;
+        }
+        printf("The dealer does not have blackjack\n");
+    }
+
+    // continue to the players turns
+    printf("== Player turns ==\n");
+    for (unsigned short player_index = 0; player_index < player_count; ++player_index)
+    {
+        deal_card(deck, &players[player_index]);
     }
 }
 
