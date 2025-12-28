@@ -55,3 +55,27 @@ void hand_string_repr(Player *player, char *out)
         strncat(out, buff, 3);
     }
 }
+
+void hand_string_repr_only_n_shown(Player *player, char *out, unsigned short cards_to_show)
+{
+    out[0] = '\0';
+    char buff[4];
+
+    for (short i = 0; i <= player->hand_head; ++i)
+    {
+        if (i < cards_to_show)
+            card_string_repr(player->hand[i], buff);
+        else if (i == cards_to_show)
+        {
+            buff[0] = '?';
+            buff[1] = '\0';
+        }
+        if (i)
+        { // add a space between cards
+            size_t len = strlen(out);
+            out[len] = ' ';
+            out[len + 1] = '\0';
+        }
+        strncat(out, buff, 3);
+    }
+}
