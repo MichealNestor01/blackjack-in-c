@@ -74,3 +74,33 @@ void display_hands(Player *players, unsigned short player_count, unsigned short 
     else
         printf("Dealer's hand: %s (%hu)\n", buff, players[8].hand_score);
 }
+
+unsigned short get_player_choice(unsigned short player_number)
+{
+    printf("Player %hu, please select your move:\n", player_number);
+    printf("\t(1) Hit\n");
+    printf("\t(2) Stick\n");
+    // printf("\t(3) Double down\n");
+    // printf("\t(4) Split\n");
+    // printf("\t(5) Surrender\n");
+    unsigned short choice = 0;
+    while (1)
+    {
+        printf("What is your your choice?: ");
+
+        if (scanf("%hu", &choice) != 1)
+        {
+            // Consume invalid input
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF)
+            {
+            }
+            printf("Invalid input, please enter a number between 1 and 2.\n");
+            continue;
+        }
+
+        if (1 <= choice && choice <= 2)
+            return choice;
+        printf("Invalid input, please enter a number between 1 and 2.\n");
+    }
+}
