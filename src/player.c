@@ -1,14 +1,15 @@
 #include "player.h"
+#include "stdio.h"
 
-Player init_player()
+Player init_player(void)
 {
-    Player new_player = {0, 0, 0, {}};
+    Player new_player = {0, 0, -1, {}};
     return new_player;
 }
 
 void add_to_hand(Player *player, unsigned int card)
 {
-    player->hand[player->hand_head++] = card;
+    player->hand[++player->hand_head] = card;
     score_hand(player);
 }
 
@@ -18,7 +19,7 @@ void score_hand(Player *player)
     unsigned int ace_count = 0;
     player->hand_score = 0;
     // add the cards face values to the hand score first
-    for (unsigned int card = 0; card <= player->hand_head; ++card)
+    for (int card = 0; card <= player->hand_head; ++card)
     {
         unsigned int card_val = (player->hand[card] % 12) + 1;
         if (card_val == 1)
