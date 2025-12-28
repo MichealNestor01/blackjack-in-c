@@ -50,7 +50,7 @@ static void test_score_hand_set_hands(void)
 static void test_init_player(void)
 {
     Player player = init_player();
-    TEST_ASSERT_EQUAL_UINT16(0, player.score);
+    TEST_ASSERT_EQUAL_INT16(0, player.score);
     TEST_ASSERT_EQUAL_UINT16(0, player.hand_score);
     TEST_ASSERT_EQUAL_INT16(-1, player.hand_head);
 }
@@ -59,9 +59,90 @@ static void test_add_to_hand(void)
 {
     Player player = init_player();
     add_to_hand(&player, 0);
-    TEST_ASSERT_EQUAL_UINT16(0, player.score);
+    TEST_ASSERT_EQUAL_INT16(0, player.score);
     TEST_ASSERT_EQUAL_UINT16(11, player.hand_score);
     TEST_ASSERT_EQUAL_INT16(0, player.hand_head);
+}
+
+static void test_score_player_double_blackjack(void)
+{
+    Player player = init_player();
+    Player dealer = init_player();
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&player, 0);  // Ace
+    add_to_hand(&dealer, 10); // Jack
+    add_to_hand(&dealer, 0);  // Ace
+    score_player(&player, &dealer);
+    TEST_ASSERT_EQUAL_INT16(0, player.score);
+}
+
+static void test_score_player_dealer_blackjack(void)
+{
+    Player player = init_player();
+    Player dealer = init_player();
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&player, 0);  // Ace
+    score_player(&player, &dealer);
+    TEST_ASSERT_EQUAL_INT16(1, player.score);
+}
+
+static void test_score_player_player_blackjack(void)
+{
+    Player player = init_player();
+    Player dealer = init_player();
+    add_to_hand(&dealer, 10); // Jack
+    add_to_hand(&dealer, 0);  // Ace
+    score_player(&player, &dealer);
+    TEST_ASSERT_EQUAL_INT16(-1, player.score);
+}
+
+static void test_score_player_player_bust(void)
+{
+    Player player = init_player();
+    Player dealer = init_player();
+    add_to_hand(&dealer, 10); // Jack
+    add_to_hand(&dealer, 10); // Jack
+    add_to_hand(&dealer, 1);  // 2
+    score_player(&player, &dealer);
+    TEST_ASSERT_EQUAL_INT16(-1, player.score);
+}
+
+static void test_score_player_player_wins(void)
+{
+    Player player = init_player();
+    Player dealer = init_player();
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&dealer, 10); // Jack
+    score_player(&player, &dealer);
+    TEST_ASSERT_EQUAL_INT16(1, player.score);
+}
+
+static void test_score_player_dealer_wins(void)
+{
+    Player player = init_player();
+    Player dealer = init_player();
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&dealer, 10); // Jack
+    add_to_hand(&dealer, 10); // Jack
+    add_to_hand(&dealer, 0);  // Ace
+    score_player(&player, &dealer);
+    TEST_ASSERT_EQUAL_INT16(-1, player.score);
+}
+
+static void test_score_player_player_wins_twice(void)
+{
+    Player player = init_player();
+    Player dealer = init_player();
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&dealer, 10); // Jack
+    score_player(&player, &dealer);
+    add_to_hand(&player, 10); // Jack
+    add_to_hand(&player, 10); // Jack
+    score_player(&player, &dealer);
+    TEST_ASSERT_EQUAL_INT16(2, player.score);
 }
 
 void run_player_tests(void)
@@ -70,4 +151,11 @@ void run_player_tests(void)
     RUN_TEST(test_score_hand_set_hands);
     RUN_TEST(test_init_player);
     RUN_TEST(test_add_to_hand);
+    RUN_TEST(test_score_player_dealer_blackjack);
+    RUN_TEST(test_score_player_player_blackjack);
+    RUN_TEST(test_score_player_double_blackjack);
+    RUN_TEST(test_score_player_player_bust);
+    RUN_TEST(test_score_player_player_wins);
+    RUN_TEST(test_score_player_dealer_wins);
+    RUN_TEST(test_score_player_player_wins_twice);
 }

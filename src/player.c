@@ -38,6 +38,35 @@ void score_hand(Player *player)
     }
 }
 
+void score_player(Player *player, Player *dealer)
+{
+    // score the player -1 if worse than dealer, 0 if match the dealer, 1 if better
+    // first check if they player is bust, loose no matter wat
+    if (player->hand_score > 21)
+    {
+        player->score -= 1;
+        player->hand_head = -1;
+        return;
+    }
+
+    // deal with blackjacks
+    unsigned short player_has_blackjack = player->hand_score == 21 && player->hand_head == 1;
+    unsigned short dealer_has_blackjack = dealer->hand_score == 21 && dealer->hand_head == 1;
+
+    if (player_has_blackjack && !dealer_has_blackjack)
+        player->score += 1;
+    else if (dealer_has_blackjack && !player_has_blackjack)
+        player->score -= 1;
+    else if (!player_has_blackjack && !dealer_has_blackjack)
+    {
+        if (player->hand_score > dealer->hand_score)
+            player->score += 1;
+        else if (player->hand_score < dealer->hand_score)
+            player->score -= 1;
+    }
+    player->hand_head = -1;
+}
+
 void hand_string_repr(Player *player, char *out)
 {
     out[0] = '\0';
