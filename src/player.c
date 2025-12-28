@@ -43,7 +43,7 @@ void hand_string_repr(Player *player, char *out)
     out[0] = '\0';
     char buff[4];
 
-    for (int i = 0; i <= player->hand_head; ++i)
+    for (short i = 0; i <= player->hand_head; ++i)
     {
         card_string_repr(player->hand[i], buff);
         if (i)

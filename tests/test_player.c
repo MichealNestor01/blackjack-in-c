@@ -45,7 +45,7 @@ static void test_init_player(void)
     Player player = init_player();
     TEST_ASSERT_EQUAL_UINT16(0, player.score);
     TEST_ASSERT_EQUAL_UINT16(0, player.hand_score);
-    TEST_ASSERT_EQUAL_INT(-1, player.hand_head);
+    TEST_ASSERT_EQUAL_INT16(-1, player.hand_head);
 }
 
 static void test_add_to_hand(void)
@@ -54,7 +54,7 @@ static void test_add_to_hand(void)
     add_to_hand(&player, 0);
     TEST_ASSERT_EQUAL_UINT16(0, player.score);
     TEST_ASSERT_EQUAL_UINT16(11, player.hand_score);
-    TEST_ASSERT_EQUAL_INT(0, player.hand_head);
+    TEST_ASSERT_EQUAL_INT16(0, player.hand_head);
 }
 
 void run_player_tests(void)

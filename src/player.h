@@ -10,7 +10,7 @@ typedef struct Player
 {
     unsigned short score;
     unsigned short hand_score;
-    int hand_head;
+    short hand_head;
     unsigned short hand[11];
 } Player;
 
