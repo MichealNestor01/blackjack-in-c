@@ -49,10 +49,58 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
 
     // continue to the players turns
     printf("== Player turns ==\n");
+    unsigned short player_not_bust = 0;
+    char buff[55];
     for (unsigned short player_index = 0; player_index < player_count; ++player_index)
     {
+        unsigned short player_number = player_index + 1;
+        hand_string_repr(&players[player_index], buff);
+        printf("Player %hu turn! Current hand: %s (%hu).\n", player_number, buff, players[player_index].hand_score);
+        while (1) // turn loop
+        {
+            // check for blackjack
+            if (players[player_index].hand_score == 21)
+            {
+                printf("Player %hu has blackjack, turn over.\n", player_number);
+                player_not_bust = 1;
+                break;
+            }
+
+            // get the user's choice
+            unsigned short choice = get_player_choice(player_number);
+            if (choice == 1)
+            {
+                deal_card(deck, &players[player_index]);
+                hand_string_repr(&players[player_index], buff);
+                printf("!HIT! Updated hand: %s (%hu)\n", buff, players[player_index].hand_score);
+            }
+            else if (choice == 2)
+            {
+                printf("!STICK! Final hand: %s (%hu)\n", buff, players[player_index].hand_score);
+                player_not_bust = 1;
+                break;
+            }
+
+            // bust check
+            if (players[player_index].hand_score > 21)
+            {
+                printf("!BUST! Player %hu's turn is over.\n", player_number);
+                break;
+            }
+        }
         deal_card(deck, &players[player_index]);
     }
+
+    // check if all players are bust
+    if (!player_not_bust)
+    {
+        printf("All players are BUST, round complete! All players loose 1 point\n");
+        for (unsigned short player_index = 0; player_index < player_count; ++player_index)
+            udpdate_score(&players[player_index], players[8].hand_score);
+        return;
+    }
+
+    // dealers turn
 }
 
 void deal_card(Deck *deck, Player *player)
