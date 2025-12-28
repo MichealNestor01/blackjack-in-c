@@ -10,7 +10,8 @@ Deck init_shuffled_deck(unsigned int deck_count)
 Deck init_sorted_deck(unsigned int deck_count)
 {
     Deck new_deck;
-    new_deck.head = (deck_count * 52) - 1;
+    new_deck.total = (deck_count * 52);
+    new_deck.head = new_deck.total - 1;
     new_deck.cards = malloc(deck_count * 52 * sizeof *new_deck.cards);
     for (unsigned int d = 0; d < deck_count; ++d)
         for (unsigned int c = 0; c < 52; ++c)

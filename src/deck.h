@@ -7,6 +7,7 @@
 
 typedef struct Deck
 {
+    unsigned int total;
     unsigned int head;
     unsigned int *cards;
 } Deck;
