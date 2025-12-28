@@ -8,6 +8,6 @@
 void play_game(unsigned short players, unsigned short decks);
 void play_round(Player *players, unsigned short player_count, Deck *deck);
 void deal_card(Deck *deck, Player *player);
-void display_hands(Player *players, unsigned short player_count);
+void display_hands(Player *players, unsigned short player_count, unsigned short show_dealer);
 
 #endif
