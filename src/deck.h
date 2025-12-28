@@ -7,14 +7,14 @@
 
 typedef struct Deck
 {
-    unsigned int total;
-    unsigned int head;
-    unsigned int *cards;
+    unsigned short total;
+    unsigned short head;
+    unsigned short *cards;
 } Deck;
 
-Deck init_shuffled_deck(unsigned int deck_count);
-Deck init_sorted_deck(unsigned int deck_count);
-unsigned int pop_card(Deck *deck);
-void card_string_repr(unsigned int card, char *out);
+Deck init_shuffled_deck(unsigned short deck_count);
+Deck init_sorted_deck(unsigned short deck_count);
+unsigned short pop_card(Deck *deck);
+void card_string_repr(unsigned short card, char *out);
 
 #endif

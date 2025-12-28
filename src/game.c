@@ -1,14 +1,14 @@
 #include "game.h"
 
-void play_game(unsigned int player_count, unsigned int deck_count)
+void play_game(unsigned short player_count, unsigned short deck_count)
 {
     // setup the player objects and the shuffled deck
     Player players[9];
-    for (unsigned int player_index = 0; player_index < player_count; ++player_index)
+    for (unsigned short player_index = 0; player_index < player_count; ++player_index)
         players[player_index] = init_player();
     players[8] = init_player(); // players[8] is used as the dealer
     Deck deck = init_shuffled_deck(deck_count);
-    unsigned int round = 1;
+    unsigned short round = 1;
     while (1)
     { // main loop
         play_round(players, player_count, &deck);
@@ -17,23 +17,36 @@ void play_game(unsigned int player_count, unsigned int deck_count)
     }
 }
 
-void play_round(Player *players, unsigned int player_count, Deck *deck)
+void play_round(Player *players, unsigned short player_count, Deck *deck)
 {
     // deal initial two cards
-    for (unsigned int card = 0; card < 2; ++card)
+    printf("Dealing cards\n");
+    for (unsigned short card = 0; card < 2; ++card)
     {
-        for (unsigned int player_index; player_index < player_count; ++player_count)
+        for (unsigned short player_index; player_index < player_count; ++player_count)
             deal_card(deck, &players[player_index]);
         deal_card(deck, &players[8]); // dealer
+        display_hands(players, player_count);
     }
     // peak for dealer blackjack
     if (players[8].hand_score == 21)
     {
+        // score_players(players, player_count);
     }
 }
 
 void deal_card(Deck *deck, Player *player)
 {
-    unsigned int card = pop_card(deck);
+    unsigned short card = pop_card(deck);
     add_to_hand(player, card);
+}
+
+void display_hands(Player *players, unsigned short player_count)
+{
+    char buff[55];
+    for (unsigned short player = 0; player < player_count; ++player)
+    {
+        hand_string_repr(&players[player], buff);
+        printf("Player %d's hand: %S", player + 1, buff);
+    }
 }

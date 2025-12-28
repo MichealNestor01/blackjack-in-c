@@ -4,6 +4,6 @@
 #include "stdlib.h"
 #include "time.h"
 
-void shuffle_uint_array(unsigned int *arr, unsigned int head);
+void shuffle_uint_array(unsigned short *arr, unsigned short head);
 
 #endif

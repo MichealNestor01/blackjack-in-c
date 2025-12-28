@@ -4,30 +4,30 @@
 static void test_init_sorted_deck_single_deck(void)
 {
     Deck deck = init_sorted_deck(1);
-    TEST_ASSERT_EQUAL_UINT(deck.head, 51);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[0], 0);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[12], 12);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[25], 25);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[51], 51);
+    TEST_ASSERT_EQUAL_UINT16(deck.head, 51);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[0], 0);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[12], 12);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[25], 25);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[51], 51);
 }
 
 static void test_init_sorted_deck_multiple_decks(void)
 {
     Deck deck = init_sorted_deck(3);
-    TEST_ASSERT_EQUAL_UINT(deck.head, 155);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[0], 0);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[51], 51);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[52], 0);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[104], 0);
-    TEST_ASSERT_EQUAL_UINT(deck.cards[155], 51);
+    TEST_ASSERT_EQUAL_UINT16(deck.head, 155);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[0], 0);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[51], 51);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[52], 0);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[104], 0);
+    TEST_ASSERT_EQUAL_UINT16(deck.cards[155], 51);
 }
 
 static void test_init_shuffled_deck(void)
 {
     Deck deck = init_sorted_deck(1);
-    TEST_ASSERT_EQUAL_UINT(deck.head, 51);
+    TEST_ASSERT_EQUAL_UINT16(deck.head, 51);
 
-    unsigned int i;
+    unsigned short i;
     for (i = 0; i <= deck.head; ++i)
         if (deck.cards[i] != i)
             break;
@@ -38,9 +38,9 @@ static void test_init_shuffled_deck(void)
 static void test_init_shuffled_multiple_decks(void)
 {
     Deck deck = init_sorted_deck(3);
-    TEST_ASSERT_EQUAL_UINT(deck.head, 155);
+    TEST_ASSERT_EQUAL_UINT16(deck.head, 155);
 
-    unsigned int i;
+    unsigned short i;
     for (i = 0; i <= deck.head; ++i)
         if (deck.cards[i] != i)
             break;
@@ -51,9 +51,9 @@ static void test_init_shuffled_multiple_decks(void)
 static void test_pop_card(void)
 {
     Deck deck = init_sorted_deck(2);
-    unsigned int kd = pop_card(&deck);
-    TEST_ASSERT_EQUAL_UINT(102, deck.head);
-    TEST_ASSERT_EQUAL_UINT(51, kd);
+    unsigned short kd = pop_card(&deck);
+    TEST_ASSERT_EQUAL_UINT16(102, deck.head);
+    TEST_ASSERT_EQUAL_UINT16(51, kd);
 }
 
 static void test_card_string_repr_all_cards(void)
@@ -64,7 +64,7 @@ static void test_card_string_repr_all_cards(void)
     const char *suits[] = {"S", "H", "C", "D"};
     const char *ranks[] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
-    for (unsigned int i = 0; i < 52; ++i)
+    for (unsigned short i = 0; i < 52; ++i)
     {
         card_string_repr(i, actual);
         snprintf(expected, 4, "%s%s", ranks[i % 13], suits[i / 13]);

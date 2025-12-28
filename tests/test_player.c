@@ -9,7 +9,7 @@ static void test_score_hand_single_card(void)
     {
         player.hand[0] = i;
         score_hand(&player);
-        TEST_ASSERT_EQUAL_UINT(i + 1, player.hand_score);
+        TEST_ASSERT_EQUAL_UINT16(i + 1, player.hand_score);
         return;
     }
     // test face cards
@@ -17,12 +17,12 @@ static void test_score_hand_single_card(void)
     {
         player.hand[0] = i;
         score_hand(&player);
-        TEST_ASSERT_EQUAL_UINT(10, player.hand_score);
+        TEST_ASSERT_EQUAL_UINT16(10, player.hand_score);
     }
     // test non spades card (and high ace)
     player.hand[0] = 13;
     score_hand(&player);
-    TEST_ASSERT_EQUAL_UINT(11, player.hand_score);
+    TEST_ASSERT_EQUAL_UINT16(11, player.hand_score);
 }
 
 static void test_score_hand_set_hands(void)
@@ -30,21 +30,21 @@ static void test_score_hand_set_hands(void)
     // test high ace
     Player player = {0, 0, 1, {10, 0}};
     score_hand(&player);
-    TEST_ASSERT_EQUAL_UINT(21, player.hand_score);
+    TEST_ASSERT_EQUAL_UINT16(21, player.hand_score);
     // test low ace and high ace together
     player.hand_head = 2;
     player.hand[0] = 0; // high ace - 11
     player.hand[1] = 0; // low ace - 1
     player.hand[2] = 1; //  2 - 2
     score_hand(&player);
-    TEST_ASSERT_EQUAL_UINT(14, player.hand_score);
+    TEST_ASSERT_EQUAL_UINT16(14, player.hand_score);
 }
 
 static void test_init_player(void)
 {
     Player player = init_player();
-    TEST_ASSERT_EQUAL_UINT(0, player.score);
-    TEST_ASSERT_EQUAL_UINT(0, player.hand_score);
+    TEST_ASSERT_EQUAL_UINT16(0, player.score);
+    TEST_ASSERT_EQUAL_UINT16(0, player.hand_score);
     TEST_ASSERT_EQUAL_INT(-1, player.hand_head);
 }
 
@@ -52,8 +52,8 @@ static void test_add_to_hand(void)
 {
     Player player = init_player();
     add_to_hand(&player, 0);
-    TEST_ASSERT_EQUAL_UINT(0, player.score);
-    TEST_ASSERT_EQUAL_UINT(11, player.hand_score);
+    TEST_ASSERT_EQUAL_UINT16(0, player.score);
+    TEST_ASSERT_EQUAL_UINT16(11, player.hand_score);
     TEST_ASSERT_EQUAL_INT(0, player.hand_head);
 }
 
