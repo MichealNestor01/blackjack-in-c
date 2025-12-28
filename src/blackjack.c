@@ -6,13 +6,6 @@
 
 int main(int argc, char **argv)
 {
-    Player p = init_player();
-    add_to_hand(&p, 1);
-    add_to_hand(&p, 0);
-    char buff[55];
-    hand_string_repr(&p, buff);
-    printf("Hand string repr: %s\n", buff);
-
     if (argc < 3)
     {
         printf("USAGE: %s players decks\n", argv[0]);
@@ -37,16 +30,7 @@ int main(int argc, char **argv)
     {
         play_game(players, decks);
         // check if the user wants to play again, and with what settings
-    }
-
-    return 0;
-
-    Deck deck = init_shuffled_deck(decks);
-    char card[4];
-    for (unsigned short i = 0; i <= deck.head; ++i)
-    {
-        card_string_repr(deck.cards[i], card);
-        printf("Card %d: %s (%d)\n", i, card, deck.cards[i]);
+        break;
     }
 
     return 0;
