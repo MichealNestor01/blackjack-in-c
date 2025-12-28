@@ -45,3 +45,9 @@ unsigned short pop_card(Deck *deck)
     }
     return deck->cards[deck->head--];
 }
+
+void shuffle_deck(Deck *deck)
+{
+    deck->head = deck->total - 1;
+    shuffle_uint_array(deck->cards, deck->head);
+}

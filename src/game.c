@@ -33,7 +33,14 @@ void play_game(unsigned short player_count, unsigned short deck_count)
         if (!(yes_or_no[0] == 'Y' || yes_or_no[0] == 'y'))
         {
             printf("Ending game\n");
+            free(deck.cards);
             return;
+        }
+
+        if (deck.head < 0.6 * deck.total)
+        {
+            printf("Less than 0.6 of the original deck left, reshuffling\n");
+            shuffle_deck(&deck);
         }
 
         ++round;
