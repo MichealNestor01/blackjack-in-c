@@ -23,9 +23,7 @@ void card_string_repr(unsigned int card, char *out)
 {
     if (card > 51)
     {
-        fprintf(stderr,
-                "ERROR: %u > 51 and can't be converted to a card\n",
-                card);
+        fprintf(stderr, "ERROR: %u > 51 and can't be converted to a card\n", card);
         exit(1);
     }
 
@@ -36,4 +34,14 @@ void card_string_repr(unsigned int card, char *out)
     unsigned int rank = card % 13;
 
     snprintf(out, 4, "%s%s", ranks[rank], suits[suit]);
+}
+
+unsigned int pop_card(Deck *deck)
+{
+    if (deck->head >= deck->total)
+    {
+        fprintf(stderr, "ERROR: Can't pop from deck, deck empty\n");
+        exit(1);
+    }
+    return deck->cards[deck->head--];
 }

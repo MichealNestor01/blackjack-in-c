@@ -12,8 +12,9 @@ typedef struct Deck
     unsigned int *cards;
 } Deck;
 
-Deck init_shuffled_deck();
-Deck init_sorted_deck();
+Deck init_shuffled_deck(unsigned int deck_count);
+Deck init_sorted_deck(unsigned int deck_count);
+unsigned int pop_card(Deck *deck);
 void card_string_repr(unsigned int card, char *out);
 
 #endif

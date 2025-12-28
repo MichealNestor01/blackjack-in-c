@@ -48,6 +48,14 @@ static void test_init_shuffled_multiple_decks(void)
     TEST_ASSERT_NOT_EQUAL_UINT(deck.cards[i], deck.head);
 }
 
+static void test_pop_card(void)
+{
+    Deck deck = init_sorted_deck(2);
+    unsigned int kd = pop_card(&deck);
+    TEST_ASSERT_EQUAL_UINT(102, deck.head);
+    TEST_ASSERT_EQUAL_UINT(51, kd);
+}
+
 static void test_card_string_repr_all_cards(void)
 {
     char actual[4];
@@ -85,6 +93,7 @@ void run_deck_tests(void)
     RUN_TEST(test_init_sorted_deck_multiple_decks);
     RUN_TEST(test_init_shuffled_deck);
     RUN_TEST(test_init_shuffled_multiple_decks);
+    RUN_TEST(test_pop_card);
     RUN_TEST(test_card_string_repr_all_cards);
     RUN_TEST(test_card_string_repr_specific_cards);
 }
