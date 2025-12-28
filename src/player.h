@@ -12,5 +12,6 @@ typedef struct Player
 Player init_player(void);
 void add_to_hand(Player *player, unsigned int card);
 void score_hand(Player *player);
+void hand_string_repr(Player *player, char *out);
 
 #endif

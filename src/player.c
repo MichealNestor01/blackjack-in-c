@@ -38,3 +38,21 @@ void score_hand(Player *player)
             player->hand_score += 1;
     }
 }
+
+void hand_string_repr(Player *player, char *out)
+{
+    out[0] = '\0';
+    char buff[4];
+
+    for (int i = 0; i <= player->hand_head; ++i)
+    {
+        card_string_repr(player->hand[i], buff);
+        if (i)
+        { // add a space between cards
+            size_t len = strlen(out);
+            out[len] = ' ';
+            out[len + 1] = '\0';
+        }
+        strncat(out, buff, 3);
+    }
+}
