@@ -47,6 +47,21 @@ static void test_score_hand_set_hands(void)
     TEST_ASSERT_EQUAL_UINT16(16, player.hand_score);
 }
 
+static void test_score_hand_ace_tests(void)
+{
+    // test low ace
+    Player player = {0, 0, 3, {10, 0, 0, 0}};
+    score_hand(&player);
+    TEST_ASSERT_EQUAL_UINT16(13, player.hand_score);
+    // test low ace and high ace together
+    player.hand_head = 2;
+    player.hand[0] = 0; // high ace - 11
+    player.hand[1] = 0; // low ace - 1
+    player.hand[2] = 8; //  8 - 9
+    score_hand(&player);
+    TEST_ASSERT_EQUAL_UINT16(21, player.hand_score);
+}
+
 static void test_init_player(void)
 {
     Player player = init_player();
@@ -149,6 +164,7 @@ void run_player_tests(void)
 {
     RUN_TEST(test_score_hand_single_card);
     RUN_TEST(test_score_hand_set_hands);
+    RUN_TEST(test_score_hand_ace_tests);
     RUN_TEST(test_init_player);
     RUN_TEST(test_add_to_hand);
     RUN_TEST(test_score_player_dealer_blackjack);
