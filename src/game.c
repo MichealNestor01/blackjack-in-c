@@ -130,6 +130,7 @@ void play_round(Player *players, unsigned short player_count, Deck *deck)
         printf("All players are BUST, round complete! All players loose 1 point\n");
         for (unsigned short player_index = 0; player_index < player_count; ++player_index)
             score_player(&players[player_index], dealer);
+        dealer->hand_head = -1; // reset dealer hand
         return;
     }
 
