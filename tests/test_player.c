@@ -35,7 +35,7 @@ static void test_score_hand_set_hands(void)
     player.hand_head = 2;
     player.hand[0] = 0; // high ace - 11
     player.hand[1] = 0; // low ace - 1
-    player.hand[2] = 1; //  2 - 2
+    player.hand[2] = 1; // 1 - 2
     score_hand(&player);
     TEST_ASSERT_EQUAL_UINT16(14, player.hand_score);
     // test low ace and high ace together
@@ -57,7 +57,7 @@ static void test_score_hand_ace_tests(void)
     player.hand_head = 2;
     player.hand[0] = 0; // high ace - 11
     player.hand[1] = 0; // low ace - 1
-    player.hand[2] = 8; //  8 - 9
+    player.hand[2] = 8; // 8 - 9
     score_hand(&player);
     TEST_ASSERT_EQUAL_UINT16(21, player.hand_score);
 }

@@ -29,13 +29,9 @@ void score_hand(Player *player)
             player->hand_score += card_val;
     }
     // then count aces
-    for (unsigned short i = 0; i < ace_count; ++i)
-    {
-        if (player->hand_score <= 10)
-            player->hand_score += 11;
-        else
-            player->hand_score += 1;
-    }
+    player->hand_score += ace_count;
+    if (ace_count && player->hand_score <= 11)
+        player->hand_score += 10;
 }
 
 void score_player(Player *player, Player *dealer)
